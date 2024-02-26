@@ -189,7 +189,7 @@
         "buttons": [
           {
             "button": "CallNotes",
-            "text": "\n\n\n-- end of content covered in call --\n/////////////// Notes Related to Call ///////////////\n"
+            "text": "\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\n"
           },
           {
             "button": "NoteForNext",
@@ -258,6 +258,19 @@
       });
     });
 
+    // Beep
+    function beep() {
+      // Trigger system beep
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      oscillator.connect(audioContext.destination);
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 1);
+    }
+
     // Copy text in the textarea to clipboard
     copyBtn.addEventListener('click', () => {
       // Check for lines starting with "note" after copying
@@ -266,21 +279,14 @@
 
       if (hasNoteLines) {
         // Check if the note lines come before "/////////////// Notes"
-        const notesSeparatorIndex = lines.indexOf('/////////////// Notes');
+        const notesSeparatorIndex = lines.indexOf('/////////////// Notes Related to Call ///////////////');
 
         if (notesSeparatorIndex === -1 || lines.findIndex(line => line.trim().toLowerCase().startsWith('note')) < notesSeparatorIndex) {
+          navigator.clipboard.writeText(textarea.value);
+          beep()
           alert("Notes may not be separate from the call events.");
-
-          // Trigger a system beep
-          const beep = new Audio('data:audio/wav;base64,UklGRlQAAAAAAf5QAAABAAAAAAEAgMAAADw8SS1BAAAA7ElEQVRIDbXBAQEAAAABIP6PzgpTmtUopflO/KC7ODkmnvn4YibLoLHsAAAAAAElFTkSuQmCC');
-          beep.play();
-
-          return; // Stop copying if there's an issue
         }
       }
-
-      // Proceed with copying if no issues found
-      navigator.clipboard.writeText(textarea.value);
 
       // Flash the button
       copyBtn.classList.add('bg-yellow-500');
@@ -291,7 +297,6 @@
 
     // Clear the entire content of the textarea
     clearBtn.addEventListener('click', () => {
-      // Reset the slightly darker color of the buttons
       document.querySelectorAll('.button').forEach(button => {
         button.style.backgroundColor = '#39414d';
       });
@@ -301,18 +306,14 @@
       if (clearedText) {
         clearedTexts.push({text: clearedText, time: getTime()});
         if (clearedTexts.length > 10) {
-          // Keep only the last 3 cleared texts
           clearedTexts.shift();
         }
 
-        // Display print links
         updatePrintLinks();
       }
 
-      // Clear the textarea
       textarea.value = '';
 
-      // Update URL with textarea content
       updateUrlParams();
     });
 
