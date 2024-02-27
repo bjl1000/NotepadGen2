@@ -77,8 +77,7 @@
       margin-top: 10px;
     }
 
-    #copy-btn,
-    #clear-btn {
+    .final-btns {
       background-color: #4a5568;
       color: #ffffff;
       border: none;
@@ -87,8 +86,7 @@
       transition: background-color 0.3s ease;
     }
 
-    #copy-btn:hover,
-    #clear-btn:hover {
+    .final-btns:hover {
       background-color: #2d3748;
     }
 
@@ -116,8 +114,9 @@
     <div id="textarea-container">
       <textarea id="textarea" placeholder="Click a button on the left to add text..."></textarea>
       <div id="action-buttons">
-        <button id="copy-btn">Copy Text</button>
-        <button id="clear-btn">Clear</button>
+        <button id="copy-btn" class="final-btns">Copy Text</button>
+        <button id="copy-no-notes-btn" class="final-btns">Copy (No Notes)</button>
+        <button id="clear-btn" class="final-btns">Clear</button>
       </div>
     </div>
     <div id="print-links">
@@ -147,40 +146,704 @@
 
     const content = [
       {
-        "category": "Category  1",
+        "category": "General",
         "buttons": [
           {
-            "button": "Sample Button  1",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            "button": "N/A",
+            "text": ""
           },
           {
-            "button": "Sample Button  2",
-            "text": "Vivamus lacinia arcu eget nulla malesuada."
+            "button": "newLine",
+            "text": "\n"
           },
           {
-            "button": "Sample Button  3",
-            "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+            "button": "makeSpace",
+            "text": "\n\n\n"
+          },
+          {
+            "button": "brack",
+            "text": "{\n\n}"
+          },
+          {
+            "button": "nextItem",
+            "text": " // \n"
+          },
+          {
+            "button": "stuAsked",
+            "text": "student asked about "
+          },
+          {
+            "button": "perStu",
+            "text": "per student "
+          },
+          {
+            "button": "stuStated",
+            "text": "student stated "
+          },
+          {
+            "button": "stuMention",
+            "text": "student mentioned "
+          },
+          {
+            "button": "advised",
+            "text": "advised "
+          },
+          {
+            "button": "emailed",
+            "text": "sent email to student with related information // \n"
+          },
+          {
+            "button": "walkThru",
+            "text": "walked student through the process // \n"
+          },
+          {
+            "button": "covered",
+            "text": "covered that topic with student // \n"
           }
         ]
       },
       {
-        "category": "Category  2",
+        "category": "Call Start",
         "buttons": [
           {
-            "button": "Sample Button  4",
-            "text": "Curabitur non nulla sit amet nisl tempus convallis quis ac lectus."
+            "button": "N/A",
+            "text": ""
           },
           {
-            "button": "Sample Button  5",
-            "text": "Donec sollicitudin molestie malesuada."
+            "button": "ib",
+            "text": "inbound call // \n"
           },
           {
-            "button": "Sample Button  6",
-            "text": "Quisque velit nisi, pretium ut lacinia in, elementum id enim."
+            "button": "ob",
+            "text": "outbound call // \n"
           },
           {
-            "button": "Sample Button  7",
-            "text": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae."
+            "button": "verNaD",
+            "text": "verified name and date of birth // \n"
+          },
+          {
+            "button": "verN",
+            "text": "verified name // \n"
+          },
+          {
+            "button": "verD",
+            "text": "verified date of birth // \n"
+          },
+          {
+            "button": "verID",
+            "text": "verified LUID // \n"
+          },
+          {
+            "button": "verSSN",
+            "text": "verified SSN // \n"
+          }
+        ]
+      },
+      {
+        "category": "Notes",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "CallNotes",
+            "text": "\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\n"
+          },
+          {
+            "button": "noMatric",
+            "text": "student has not matriculated into the program, based on current status adv student to speak with ____________, offered transfer // \n"
+          },
+          {
+            "button": "note",
+            "text": "note: "
+          },
+          {
+            "button": "noteSee",
+            "text": "note: seeing "
+          },
+          {
+            "button": "notesLong",
+            "text": "notes: \n{\n\n}, \n"
+          }
+        ]
+      },
+      {
+        "category": "Registration",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "offReg",
+            "text": "offered registration, \n"
+          },
+          {
+            "button": "offRegNext",
+            "text": "offered registration for the following semester, \n"
+          },
+          {
+            "button": "regd",
+            "text": "registered: \n\n// \n"
+          },
+          {
+            "button": "dec2x",
+            "text": "declined twice, advised deadline // \n"
+          }
+        ]
+      },
+      {
+        "category": "FCI",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "offFCI",
+            "text": "offered FCI, \n"
+          },
+          {
+            "button": "offFCInext",
+            "text": "offered FCI for the following semester, \n"
+          },
+          {
+            "button": "FCId",
+            "text": "student completed FCI // \n"
+          },
+          {
+            "button": "dec2x",
+            "text": "declined twice, advised deadline // \n"
+          },
+          {
+            "button": "gi",
+            "text": "student using GI Bill, adv ddl and to speak with MAO if any issues // \n"
+          },
+          {
+            "button": "ta",
+            "text": "student using military TA, adv ddl and to speak with MAO if any issues // \n"
+          },
+          {
+            "button": "attempting",
+            "text": "student starting FCI, student asked about \n\n______________, \n\n\n_________________ // \n"
+          },
+        ]
+      },
+      {
+        "category": "Offer Denial",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "dec",
+            "text": "student declined offer, \n"
+          },
+          {
+            "button": "reOff",
+            "text": "advisor made second offer, \n"
+          },
+          {
+            "button": "dec2x",
+            "text": "student declined 2x, \n"
+          },
+          {
+            "button": "advDdl",
+            "text": "advised student of deadline // \n"
+          }
+        ]
+      },
+      {
+        "category": "Promo",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "promo",
+            "text": "discussed potential for financial promo if: \n{\n\n}, \n"
+          },
+          {
+            "button": "metWO",
+            "text": "note: student met requirements for the promo without needing information on it // \n"
+          },
+          {
+            "button": "alreadyMet",
+            "text": "note: student already met promo requirements prior to this call // \n"
+          },
+          {
+            "button": "noCreds",
+            "text": "note: student does not have enough credits available for meeting the promo requirements // \n"
+          },
+          {
+            "button": "noFin",
+            "text": "note: no currently eligible financial promo showing in the promo tool for an open registration period // \n"
+          }
+        ]
+      },
+      {
+        "category": "Disclosure Points",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "dpLong",
+            "text": "disclosure points covered: \n{\n\n} //\n"
+          },
+          {
+            "button": "dpShort",
+            "text": "disclosure points covered // \n"
+          },
+          {
+            "button": "dpDec",
+            "text": "student declined information on disc points // \n"
+          },
+          {
+            "button": "dpNotDue",
+            "text": "note: disclosure points not yet due per stated timeframes // \n"
+          },
+          {
+            "button": "noDP",
+            "text": "note: student has no disclosure points // \n"
+          },
+          {
+            "button": "dpDone",
+            "text": "note: no further disclosure points for student // \n"
+          }
+        ]
+      },
+      {
+        "category": "Final Semester",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "noNewApp",
+            "text": "student not interested in further schooling, no application offered // \n"
+          },
+          {
+            "button": "decline",
+            "text": "offered new application, student declined // \n"
+          },
+          {
+            "button": "maybe",
+            "text": "offered new application, student will consider further, adv call us if/when ready // \n"
+          },
+          {
+            "button": "xfer",
+            "text": "offered new application, student will transfer to consulting for new application // \n\n\n\n\n\nand transferred to consulting 5554409"
+          },
+          {
+            "button": "recent",
+            "text": "note: no discussion of new app as seeing related note from this semester // \n"
+          },
+          {
+            "button": "dcaLater",
+            "text": "advised stu complete program completion application, student will complete this later // \n"
+          },
+          {
+            "button": "dcaDo",
+            "text": "advised stu complete program completion application, student completed on phone, seeing marked off in CRT // \n"
+          },
+          {
+            "button": "dcaAlreadyDone",
+            "text": "note: program completion application has already been submitted // \n"
+          },
+        ]
+      },
+      {
+        "category": "Career Services",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "covCS",
+            "text": "covered career services and sending email // \n"
+          },
+          {
+            "button": "aware",
+            "text": "student aware of career services, no email sent // \n"
+          },
+          {
+            "button": "already",
+            "text": "note: career services has been covered within the past 3 months // \n"
+          }
+        ]
+      },
+      {
+        "category": "NFQ and NSA",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "nfq",
+            "text": "student has no further questions // \n"
+          },
+          {
+            "button": "nsas",
+            "text": "next student actions: \n"
+          },
+          // Add more buttons as needed within this category
+          {
+            "button": "done",
+            "text": "// \n"
+          }
+        ]
+      },
+      {
+        "category": "Specific NSAs",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "sp D reg",
+            "text": "nsa: spring D reg by 3/6. \n"
+          },
+          {
+            "button": "sp D fci",
+            "text": "nsa: spring D fci by 3/11. \n"
+          },
+          {
+            "button": "su ABJ reg",
+            "text": "nsa: summer ABJ reg by 5/1. \n"
+          },
+          {
+            "button": "su ABJ fci",
+            "text": "nsa: summer ABJ fci by 5/6. \n"
+          },
+          {
+            "button": "su D reg",
+            "text": "nsa: summer D reg by 6/12. \n"
+          },
+          {
+            "button": "su D fci",
+            "text": "nsa: summer D fci by 6/17. \n"
+          },
+          {
+            "button": "f ABJ reg",
+            "text": "nsa: fall ABJ reg by 8/7. \n"
+          },
+          {
+            "button": "f ABJ fci",
+            "text": "nsa: fall ABJ fci by 8/12. \n"
+          },
+          {
+            "button": "f C reg",
+            "text": "nsa: fall C reg by 9/4. \n"
+          },
+          {
+            "button": "f C fci",
+            "text": "nsa: fall C fci by 9/9. \n"
+          },
+          {
+            "button": "f D reg",
+            "text": "nsa: fall D reg by 10/9. \n"
+          },
+          {
+            "button": "f D fci",
+            "text": "nsa: fall D fci by 10/14. \n"
+          },
+          {
+            "button": "noteWaiting",
+            "text": "note: student waiting on departmental decision // \n"
+          },
+          {
+            "button": "crc",
+            "text": "nsa: course requirements checklist prior to nonattendance drops early week 2. // \n"
+          },
+          {
+            "button": "dca/cca",
+            "text": "nsa: program completion application. // \n"
+          },
+          {
+            "button": "newApp",
+            "text": "nsa: new application if/when ready. // \n"
+          },
+          {
+            "button": "none",
+            "text": "nsa: none. // \n"
+          }
+        ]
+      },
+      {
+        "category": "Call End",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "brand",
+            "text": "branded "
+          },
+          {
+            "button": "xfer",
+            "text": "and transferred to "
+          },
+          {
+            "button": "disCB",
+            "text": "disconnection occurred, will call student back"
+          },
+          {
+            "button": "disNCF",
+            "text": "disconnection occurred, no call back due to advisor respecting perceived student frustration"
+          },
+          {
+            "button": "disNC",
+            "text": "disconnection occurred, no call back due to "
+          }
+        ]
+      },
+      {
+        "category": "Transfers",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "admUG",
+            "text": "and transferred to admissions 5554401 "
+          },
+          {
+            "button": "admGR",
+            "text": "and transferred to admissions 5554402 "
+          },
+          {
+            "button": "con",
+            "text": "and transferred to consulting 5554409 "
+          },
+          {
+            "button": "sao",
+            "text": "and transferred to student accounts office 5923600 "
+          },
+          {
+            "button": "fao",
+            "text": "and transferred to financial aid office 5924406 "
+          },
+          {
+            "button": "mao",
+            "text": "and transferred to military affairs office 5554440 "
+          },
+          {
+            "button": "IThelp",
+            "text": "and transferred to IT helpdesk 5927800 "
+          },
+          {
+            "button": "nesUG",
+            "text": "and transferred to NES 5554403 "
+          },
+          {
+            "button": "nesGR",
+            "text": "and transferred to NES 5554404 "
+          },
+          {
+            "button": "advisingX",
+            "text": "and transferred back to the advising queue per student request 5554430 "
+          },
+          {
+            "button": "ro",
+            "text": "and transferred to registrar 5925100 "
+          },
+          {
+            "button": "switchboard",
+            "text": "and transferred to switchboard 5822000 "
+          },
+          {
+            "button": "resiUGadm",
+            "text": "and transferred to residential admissions 5554501 "
+          },
+          {
+            "button": "resiGRadm",
+            "text": "and transferred to residential admissions 5554503 "
+          },
+          {
+            "button": "casas",
+            "text": "and transferred to CASAS 5924110 "
+          },
+          {
+            "button": "medSchool",
+            "text": "and transferred to med school 5926400 "
+          },
+          {
+            "button": "lawSchool",
+            "text": "and transferred to law school 5925300 "
+          },
+          {
+            "button": "luoaInquiry",
+            "text": "and transferred to LUOA inquiry 5554531 "
+          },
+          {
+            "button": "luoaAdm",
+            "text": "and transferred to LUOA admissions 5554525 "
+          },
+          {
+            "button": "luoaAdv",
+            "text": "and transferred to LUOA advising 5554526 "
+          },
+          {
+            "button": "luoaStuAcct",
+            "text": "and transferred to LUOA student accounts 5554534 "
+          }
+        ]
+      },
+      {
+        "category": "Special Callflows",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "withdraw",
+            "text": `student wants to discuss drop/withdraw from __________, \n\n\nasked why student would like to leave the class, student ___________, \n\n\nasked if student has discussed the issue with professor, is aware of late policy in syllabus, or sought other assistance, student __________, \n\n\nran drop and withdrawal dialog, outcome: __________, \nXXXXX student agreed to "I understand that by dropping my course(s) there could be financial consequences, including but not limited to federal aid being returned, canceled, or recalculated. I understand that I will be responsible for any balance accrued on my account caused by the drop.", \nXXXXX asked student if needing more information from another department related to costs, student ____________, \nXXXXX dropped ___________ //\n\n\ncovered drop and withdrawal dialog, \n\n[PASTED DIALOG BELOW CALL] \n\n[DELETE UNNEEDED ITEMS]\n\n\covered chat information from \nXXXXX Student Accounts Office and \nXXXXX Financial Aid Office, \nXXXXX and Military Affairs Office, \n\n\nXXXXX adv inactivity at less than __________ days, \n\n\n????? discussed ceasing attendance review if changing mind about D term, \n\n\nXXXXX asked if student had any questions, student __________, \n\n\nstudent understands all above information and wishes to withdraw now from: \n___________ now,\nXXXXX Intent to Withdraw Form submitted, \n????? 72 hr text > student got text > student states text back and confirmation received, \n????? 72 hr hold not needed due to __________, \nXXXXX gave student confirmation code: __________, \nXXXXX adv no need for further work in class and 2 weeks to process and appear as out of the class, \nXXXXX adv optional but many students like to inform professors //\n\n\nXXXXX student understands all above information and wishes to further consider withdrawing from: \n__________,\nXXXXX entered information for intent to withdraw email, \nXXXXX adv use by 11:59 pm est on __________ if using, \nXXXXX adv around 2 weeks to process and appear as out of the class //\n\n\nXXXX student understands all above information and does not wish to withdraw // \n\n\n????? discussed submitting information for medical withdrawal, offered to send information via email, XXXXXXXXXXXX // \n\n????? offered to send information on military withdrawal, sent information // \n\n????? student would like an exception to the withdrawal outcomes due to __________, adv complaint form 7-10 bus days and no guarantees, offered to send link, __________ // \n\n\n/////////////// Drop and Withdrawal Dialog /////////////// \n\n[PASTE HERE]`
+          },
+          {
+            "button": "drop",
+            "text": `ran drop and withdrawal dialog, outcome: __________, \n\n\nstudent agreed to "I understand that by dropping my course(s) there could be financial consequences, including but not limited to federal aid being returned, canceled, or recalculated. I understand that I will be responsible for any balance accrued on my account caused by the drop.", \n\n\nasked student if needing more information from another department related to costs, student ____________, \n\n\ndropped: \n___________ \n//\n`
+          },
+          {
+            "button": "leaveUni",
+            "text": `Academic Advisor asked student "I am sorry to hear you are no longer interested in Liberty University. If you don’t mind me asking is there a reason we may not be the best fit for you?", \n\n\nout of potential solutions (different program, appeal, complaint, etc) discussed __________, \nstudent __________, \n\n\ndiscussed BR policy (no official paperwork but broken enrollment after nonattendance through a continuous academic year of fall > spring > summer //\n\n\nadv student of deadlines in case of change //\n\n\n[INSERT NSA]\n\n\nnfq // \nbranded`
+          }
+        ]
+      },
+      {
+        "category": "Outbound Campaigns",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "NB",
+            "text": `${date} // NB // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with course registration //\nnote: for students with no barriers `
+          },
+          {
+            "button": "SB",
+            "text": `${date} // SB // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with course registration //\nnote: for students with soft hold or pending total withdrawal // `
+          },
+          {
+            "button": "HB",
+            "text": `${date} // HB // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with course registration //\nnote: for students with non-financial hard holds // `
+          },
+          {
+            "button": "FAReq",
+            "text": `${date} // FAReq // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with course registration //\nnote: for students with financial aid-related FCI barrier // `
+          },
+          {
+            "button": "NE",
+            "text": `${date} // NE // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with course registration //\nnote: for students with NE / business hold // `
+          },
+          {
+            "button": "NegBal",
+            "text": `${date} // NegBal // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with FCI //\nnote: for students with 0 or negative balance // `
+          },
+          {
+            "button": "PreFCI",
+            "text": `${date} // PreFCI // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to assist with FCI //\nnote: for students with a current balance on the account // `
+          },
+          {
+            "button": "PTtoFT",
+            "text": `${date} // PTtoFT // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to help part-time students enroll full-time // `
+          },
+          {
+            "button": "BnotD",
+            "text": `${date} // BnotD // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to help active students enroll in D term // `
+          },
+          {
+            "button": "Reach1",
+            "text": `${date} // Reach1 // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to see how semester is going //\nnote: for new students // `
+          },
+          {
+            "button": "Reach2",
+            "text": `${date} // Reach2 // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to see how semester is going //\nnote: for returning students // `
+          },
+          {
+            "button": "CRC",
+            "text": `${date} // CRC // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to inform students of need to make attendance if wanting to keep course // `
+          },
+          {
+            "button": "GradApp",
+            "text": `${date} // GradApp // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign assistance for students with DCA in //\nnote: could be outreach, registration, FCI, or a new app //`
+          },
+          {
+            "button": "NonFCI",
+            "text": `${date} // NonFCI // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign for students who had classes dropped due to non-FCI //\nnote: offer should be for an open registration timeframe // `
+          },
+          {
+            "button": "PreBR",
+            "text": `${date} // PreBR // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign for students who will soon break enrollment to see if another program would enable a quicker grad timeframe //\nnote: stu should have suggestion in mass comms // `
+          },
+          {
+            "button": "obABDN",
+            "text": `${date} // OB ABDN // \n\n\n-- end of content covered in call --\n\n\n/////////////// Notes Related to Call ///////////////\nnote: campaign to connect to students who previously hung up prior to connecting // `
+          },
+          {
+            "button": "obCB",
+            "text": `${date} // OB Callback // `
+          }
+        ]
+      },
+      {
+        "category": "Outbound Items",
+        "buttons": [
+          {
+            "button": "N/A",
+            "text": ""
+          },
+          {
+            "button": "verName",
+            "text": "verified student name // \n"
+          },
+          {
+            "button": "lvm",
+            "text": "left a voicemail"
+          },
+          {
+            "button": "na",
+            "text": "no answer"
+          },
+          {
+            "button": "nonresponse",
+            "text": "picked up but nonresponsive, disconnect"
+          },
+          {
+            "button": "shu",
+            "text": "student hung up"
+          },
+          {
+            "button": "discReason",
+            "text": "discussed reason for the call // "
+          },
+          {
+            "button": "ngt",
+            "text": "stu states this is not a good time for a call, "
+          },
+          {
+            "button": "cb",
+            "text": "student needs callback, callback set // "
+          },
+          {
+            "button": "decCB",
+            "text": "stu declined callback // "
+          },
+          {
+            "button": "excForm",
+            "text": "note: exclusion form submitted "
           }
         ]
       },
@@ -271,29 +934,60 @@
       oscillator.stop(audioContext.currentTime + 1);
     }
 
-    // Copy text in the textarea to clipboard
-    copyBtn.addEventListener('click', () => {
-      // Check for lines starting with "note" after copying
-      const lines = textarea.value.split('\n');
-      const hasNoteLines = lines.some(line => line.trim().toLowerCase().startsWith('note'));
 
-      if (hasNoteLines) {
-        // Check if the note lines come before "/////////////// Notes"
-        const notesSeparatorIndex = lines.indexOf('/////////////// Notes Related to Call ///////////////');
+// Copy text in the textarea to clipboard excluding notes after "-- end"
+const copyNoNotesBtn = document.getElementById('copy-no-notes-btn');
+copyNoNotesBtn.addEventListener('click', () => {
+  var textarea = document.getElementById('textarea');
+  var textToCopy = textarea.value.split('-- end')[0].trim(); // Exclude everything after "-- end" and trim extra new lines
+  navigator.clipboard.writeText(textToCopy);
 
-        if (notesSeparatorIndex === -1 || lines.findIndex(line => line.trim().toLowerCase().startsWith('note')) < notesSeparatorIndex) {
-          navigator.clipboard.writeText(textarea.value);
-          beep()
-          alert("Notes may not be separate from the call events.");
-        }
-      }
+  var searchString = "\nnote";
+  var isNotePresent = textToCopy.toLowerCase().includes(searchString.toLowerCase());
 
-      // Flash the button
-      copyBtn.classList.add('bg-yellow-500');
-      setTimeout(() => {
-        copyBtn.classList.remove('bg-yellow-500');
-      }, 200);
-    });
+  // Flash the button
+  copyNoNotesBtn.classList.add('bg-yellow-500');
+  setTimeout(() => {
+    copyNoNotesBtn.classList.remove('bg-yellow-500');
+  }, 200);
+
+  // Display the result
+  if (isNotePresent) {
+    beep();
+    alert('Note may be in call information.');
+  }
+});
+
+// Copy text in the textarea to clipboard
+copyBtn.addEventListener('click', () => {
+  var textarea = document.getElementById('textarea');
+
+  // First, copy the trimmed content to clipboard
+  navigator.clipboard.writeText(textarea.value.trim());
+
+  // Check for lines starting with "note" after trimming
+  var lines = textarea.value.split('\n');
+  var hasNoteLines = lines.some(line => line.trim().toLowerCase().startsWith('note'));
+
+  if (hasNoteLines) {
+    // Check if the note lines come before "/////////////// Notes"
+    var notesSeparatorIndex = lines.indexOf('/////////////// Notes Related to Call ///////////////');
+
+    if (notesSeparatorIndex === -1 || lines.findIndex(line => line.trim().toLowerCase().startsWith('note')) < notesSeparatorIndex) {
+      // If conditions met, copy the original content
+      navigator.clipboard.writeText(textarea.value);
+      beep();
+      alert("Notes may not be separate from the call events.");
+    }
+  }
+
+  // Flash the button
+  copyBtn.classList.add('bg-yellow-500');
+  setTimeout(() => {
+    copyBtn.classList.remove('bg-yellow-500');
+  }, 200);
+});
+
 
     // Clear the entire content of the textarea
     clearBtn.addEventListener('click', () => {
